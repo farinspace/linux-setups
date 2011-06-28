@@ -1,0 +1,33 @@
+apt-get update
+
+apt-get install xvfb xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+
+echo "" >> /etc/apt/sources.list
+
+echo "deb http://archive.canonical.com/ lucid partner" >> /etc/apt/sources.list
+
+apt-get update
+
+apt-get install sun-java6-jre sun-java6-plugin sun-java6-fonts firefox
+
+apt-get install php5-cgi php5-cli php-pear php5-suhosin php5-curl
+
+pear upgrade
+
+pear channel-discover pear.phpunit.de
+
+pear channel-discover components.ez.no
+
+pear channel-discover pear.symfony-project.com
+
+pear install phpunit/PHPUnit
+
+Xvfb :99 -ac &
+
+Xvfb :99 -screen 0 1024x768x24 -noreset &
+
+export DISPLAY=:99
+
+wget http://selenium.googlecode.com/files/selenium-server-standalone-2.0b3.jar
+
+java -jar selenium-server-standalone-2.0b3.jar -forcedBrowserMode "*firefox" &>/dev/null &
