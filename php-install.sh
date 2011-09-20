@@ -111,7 +111,6 @@ pm.min_spare_servers = 2
 pm.max_spare_servers = 3
 pm.max_requests = 500
 slowlog = /var/log/php5-fpm.slow.log
-env[HOSTNAME] = \$HOSTNAME
 env[PATH] = /usr/local/bin:/usr/bin:/bin
 env[TMP] = /var/www/temp
 env[TMPDIR] = /var/www/temp
@@ -136,6 +135,26 @@ sed -e "s/^#\+/;/g" -i /etc/php5/fpm/conf.d/mcrypt.ini
 
 ###
 
+chown -R $USERNAME:$USERNAME /var/www
+
+HTTPDCONF='/etc/apache2/httpd.conf'
+
+if [ -f $HTTPDCONF ]
+then
+	echo "Include /var/www/conf/php5-fpm.conf" >> $HTTPDCONF
+
+cat > /var/www/conf/php5-fpm.conf << EOF
+DirectoryIndex index.php index.html
+<IfModule mod_fastcgi.c>
+  Alias /php.fcgi /var/www/php.fcgi
+  FastCGIExternalServer /var/www/php.fcgi -socket /etc/php5/fpm/php5-fpm.sock -pass-header Authorization
+  AddType application/x-httpd-php5 .php
+  Action application/x-httpd-php5 /php.fcgi
+  AddHandler fastcgi-script .fcgi
+</IfModule>
+EOF
+fi
+
 service php5-fpm start
 
-chown -R $USERNAME:$USERNAME /var/www
+service apache2 restart
