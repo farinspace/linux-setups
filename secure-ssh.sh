@@ -99,4 +99,4 @@ sed -e "s/#\?PermitRootLogin .*/PermitRootLogin no/g" -i /etc/ssh/sshd_config
 sed -e "s/#\?PasswordAuthentication .*/PasswordAuthentication no/g" -i /etc/ssh/sshd_config
 
 # restart ssh
-/etc/init.d/ssh restart
+service ssh restart
