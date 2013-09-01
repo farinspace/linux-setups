@@ -1,0 +1,87 @@
+# this is not a bash script .. just a series of commands to be executed
+
+apt-get install libcap2 db4.8-util ssl-cert
+
+wget http://us.archive.ubuntu.com/ubuntu/pool/main/v/vsftpd/vsftpd_2.3.2-3ubuntu5.1_amd64.deb
+
+dpkg --install vsftpd_2.3.2-3ubuntu5.1_amd64.deb
+
+rm vsftpd_2.3.2-3ubuntu5.1_amd64.deb
+
+echo vsftpd hold | dpkg --set-selections
+
+make-ssl-cert generate-default-snakeoil
+
+vi /etc/pam.d/vsftpd.virtual
+-----
+auth       required     pam_userdb.so db=/etc/vsftpd/virtual-users
+account    required     pam_userdb.so db=/etc/vsftpd/virtual-users
+session    required     pam_loginuid.so
+-----
+
+mv /etc/vsftpd.conf /etc/vsftpd.conf.default
+
+vi /etc/vsftpd.conf
+-----
+listen=YES
+anonymous_enable=NO
+local_enable=YES
+
+# defaults to anonymous user which is restrictive, set to YES to use "ftp" user perms
+virtual_use_local_privs=YES
+
+write_enable=YES
+pam_service_name=vsftpd.virtual
+guest_enable=YES
+user_sub_token=$USER
+local_root=/var/ftp/$USER
+chroot_local_user=YES
+hide_ids=YES
+local_umask=022
+
+connect_from_port_20=YES
+pasv_min_port=50000
+pasv_max_port=60000
+
+# default user is "ftp"
+#guest_username=ftp
+
+user_config_dir=/etc/vsftpd/vusers
+
+ssl_enable=YES
+ssl_ciphers=HIGH
+require_ssl_reuse=NO
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+-----
+
+mkdir /etc/vsftpd
+
+mkdir /etc/vsftpd/vusers
+
+mkdir /var/ftp
+
+mkdir /var/ftp/admin
+
+mkdir /var/ftp/sample
+
+chown -R ftp:ftp /var/ftp
+
+vi /etc/vsftpd/virtual-users.txt
+-----
+admin
+Abc123!
+sample
+123Abc!
+-----
+
+vi /etc/vsftpd/vusers/admin
+-----
+local_root=/var/ftp
+-----
+
+db4.8_load -T -t hash -f /etc/vsftpd/virtual-users.txt /etc/vsftpd/virtual-users.db
+
+chmod 600 /etc/vsftpd/virtual-users.db /etc/vsftpd/virtual-users.txt
+
+service vsftpd restart
