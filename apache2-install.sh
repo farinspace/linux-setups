@@ -2,17 +2,7 @@
 
 ###
 
-echo "" >> /etc/apt/sources.list
-
-echo "deb http://archive.ubuntu.com/ubuntu/ lucid main restricted multiverse" >> /etc/apt/sources.list
-
-echo "deb-src http://archive.ubuntu.com/ubuntu lucid main restricted multiverse" >> /etc/apt/sources.list
-
-apt-get -yq update
-
-apt-get -yq update
-
-apt-get -yq install apache2-mpm-worker libapache2-mod-fastcgi
+apt-get -yq install apache2-mpm-worker
 
 a2enmod actions
 
@@ -29,6 +19,12 @@ a2dismod status
 a2dismod cgid
 
 a2dismod autoindex
+
+GREPOUT=`grep "ServerName" /etc/apache2/httpd.conf`
+if [ -z "$GREPOUT" ];
+then
+    echo "ServerName localhost" >> /etc/apache2/httpd.conf
+fi
 
 ln -s /etc/apache2/sites-available /etc/apache2/sa
 
