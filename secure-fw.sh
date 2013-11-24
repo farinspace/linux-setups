@@ -22,7 +22,7 @@ fi
 
 ###
 
-echo -n "IP Address [default=127.0.0.1]: "
+echo -n "IP Address (MySQL port access) [default=127.0.0.1]: "
 read MYIP
 
 if [ -z "$MYIP" ]
@@ -75,3 +75,9 @@ then
 fi
 
 iptables -L
+
+echo ""
+echo "Edit the rules at \"$TESTRULES\""
+echo "Use \"iptables-restore < $TESTRULES\" to enable the rules"
+echo "Use \"iptables-save > /etc/iptables.up.rules\" to save the rules"
+
