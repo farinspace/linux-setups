@@ -49,3 +49,5 @@ ln -s /etc/apache2/sites-available/$SHORTNAME /etc/apache2/sites-enabled/$SHORTN
 
 service apache2 reload
 
+echo "Run \"vim /etc/apache2/sites-enabled/$SHORTNAME\" to make changes to this vhost"
+
