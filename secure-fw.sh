@@ -51,6 +51,9 @@ cat > $TESTRULES << EOF
 # see notes: http://serverfault.com/questions/234674/setting-up-linux-iptables-for-ftp-pasv-mode-connections
 -A INPUT -p tcp --dport $PORTRANGE -m state --state RELATED,ESTABLISHED,NEW -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 3306 -s $MYIP -j ACCEPT
+# ntp
+-A INPUT -p udp -m udp --dport 123 -j ACCEPT
+-A OUTPUT -p udp -m udp --sport 123 -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT
 -A INPUT -j DROP
