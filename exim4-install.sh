@@ -16,3 +16,5 @@ echo "Run \"update-exim4.conf\" to generate exim4 master configuration file"
 
 echo "Run \"service exim4 restart\" to restart exim4"
 
+echo ""
+
