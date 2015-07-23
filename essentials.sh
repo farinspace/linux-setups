@@ -4,7 +4,7 @@ apt-get -yq update
 
 apt-get -yq upgrade
 
-apt-get -yq install zip unzip expect locate ntp
+apt-get -yq install zip unzip expect locate ntp vim
 
 # adds support for add-apt-repository
 apt-get -yq install python-software-properties
