@@ -37,3 +37,5 @@ sed -e "s/;\?expose_php .*/expose_php \= Off/g" -i /etc/php5/fpm/php.ini
 service php5-fpm restart
 
 service apache2 restart
+
+echo "Run \"echo \"<?php phpinfo()\" >> /var/www/html/phpinfo.php\" to test PHP"
