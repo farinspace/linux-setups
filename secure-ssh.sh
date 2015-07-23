@@ -37,7 +37,7 @@ fi
 
 ###
 
-echo -n "SSH Public Key (end input with ESC): "
+echo -n "SSH Public Key, e.g. \"ssh-rsa [PUBLICKEY]\" (end input with ESC):"
 read -d `echo -e "\e"` PUBLICKEY
 echo ""
 
@@ -81,7 +81,7 @@ mkdir /home/$USERNAME/.ssh
 touch /home/$USERNAME/.ssh/authorized_keys
 
 # remove newlines from public key
-echo "ssh-rsa $PUBLICKEY" | sed ':a;N;$!ba;s/\n//g' >> /home/$USERNAME/.ssh/authorized_keys
+echo "$PUBLICKEY" | sed ':a;N;$!ba;s/\n//g' >> /home/$USERNAME/.ssh/authorized_keys
 
 ###
 
