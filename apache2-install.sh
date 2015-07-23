@@ -8,13 +8,18 @@ a2dismod status cgid autoindex
 
 ###
 
-GREPOUT=`grep "ServerName" /etc/apache2/httpd.conf`
+GREPOUT=`grep "ServerName" /etc/apache2/conf-available/custom.conf`
 if [ -z "$GREPOUT" ];
 then
-    echo "ServerName localhost" >> /etc/apache2/httpd.conf
+    echo "ServerName localhost" >> /etc/apache2/conf-available/custom.conf
+    ln -s /etc/apache2/conf-available/custom.conf /etc/apache2/conf-enabled/custom.conf
 fi
 
 ###
+
+ln -s /etc/apache2/conf-available /etc/apache2/ca
+
+ln -s /etc/apache2/conf-enabled /etc/apache2/ce
 
 ln -s /etc/apache2/sites-available /etc/apache2/sa
 
@@ -52,4 +57,3 @@ fi
 ###
 
 service apache2 restart
-
