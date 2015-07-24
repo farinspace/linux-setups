@@ -1,9 +1,10 @@
-## Ubuntu server setups
+## Ubuntu Server Setups
 
 These are bash scripts to help setup and configure a fresh Ubuntu 14.04 LTS server install (primarily tested on Rackspace, but should work elsewhere as well).
 
 ```
-sudo apt-get install git-core
+apt-get update
+apt-get install git-core
 git clone https://github.com/farinspace/linux-setups.git
 ```
 
