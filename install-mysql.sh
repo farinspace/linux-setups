@@ -4,7 +4,7 @@
 
 if ! which expect &> /dev/null;
 then
-    echo "Unable to find command 'expect', run ./essentials.sh first"
+    echo "Unable to find command 'expect', run ./install-essentials.sh first"
     exit
 fi;
 

@@ -44,3 +44,4 @@ service apache2 restart
 echo ""
 echo "Run \"cp test-php.php /var/www/html/test-php.php\" to test PHP"
 echo "Run \"cp test-mail.php /var/www/html/test-mail.php\" to test Mail"
+echo ""

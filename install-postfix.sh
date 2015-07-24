@@ -24,11 +24,11 @@ apt-get -y install mailutils
 
 ###
 
-sed -e "s/#\?myhostname .*/myhostname $HOSTNAME/g" -i /etc/postfix/main.cf
+sed -e "s/#\?myhostname .*/myhostname = $HOSTNAME/g" -i /etc/postfix/main.cf
 
-sed -e "s/#\?mydestination .*/mydestination $HOSTNAME, localhost.localdomain, localhost/g" -i /etc/postfix/main.cf
+sed -e "s/#\?mydestination .*/mydestination = $HOSTNAME, localhost.localdomain, localhost/g" -i /etc/postfix/main.cf
 
-sed -e "s/#\?inet_interfaces .*/inet_interfaces localhost/g" -i /etc/postfix/main.cf
+sed -e "s/#\?inet_interfaces .*/inet_interfaces = localhost/g" -i /etc/postfix/main.cf
 
 ###
 
@@ -47,3 +47,4 @@ service postfix restart
 echo ""
 echo "Create a SPF DNS record, see \"http://www.openspf.org/SPF_Record_Syntax\" for details"
 echo "Create a PTR reverse DNS record, see \"http://help.dnsmadeeasy.com/managed-dns/dns-record-types/ptr-record/\" for details"
+echo ""

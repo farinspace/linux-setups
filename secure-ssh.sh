@@ -4,7 +4,7 @@
 
 if ! which expect &> /dev/null;
 then
-    echo "Unable to find command 'expect', run ./essentials.sh first"
+    echo "Unable to find command 'expect', run ./install-essentials.sh first"
     exit
 fi;
 
@@ -100,3 +100,7 @@ sed -e "s/#\?PasswordAuthentication .*/PasswordAuthentication no/g" -i /etc/ssh/
 
 # restart ssh
 service ssh restart
+
+echo ""
+echo "Before disconnecting, open another terminal window and test an ssh/private-key connection"
+echo ""

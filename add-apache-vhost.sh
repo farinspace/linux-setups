@@ -51,5 +51,6 @@ service apache2 reload
 
 chown -R www-data:www-data /var/www/$SHORTNAME
 
+echo ""
 echo "Run \"vim /etc/apache2/sites-enabled/$SHORTNAME\" to make changes to this vhost"
-
+echo ""
