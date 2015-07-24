@@ -80,7 +80,6 @@ fi
 iptables -L
 
 echo ""
-echo "Edit the rules at \"$TESTRULES\""
-echo "Use \"iptables-restore < $TESTRULES\" to enable the rules"
+echo "Use \"vim $TESTRULES\" to edit rules"
+echo "Use \"iptables-restore < $TESTRULES\" to enable and test the rules"
 echo "Use \"iptables-save > /etc/iptables.up.rules\" to save the rules"
-

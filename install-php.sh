@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# http://askubuntu.com/questions/109404/how-do-i-install-latest-php-in-supported-ubuntu-versions-like-5-4-x-in-ubuntu-1
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+###
+
 add-apt-repository -y ppa:ondrej/php5-5.6
 
 apt-get -yq update
@@ -38,4 +41,6 @@ service php5-fpm restart
 
 service apache2 restart
 
-echo "Run \"echo \"<?php phpinfo()\" >> /var/www/html/phpinfo.php\" to test PHP"
+echo ""
+echo "Run \"cp test-php.php /var/www/html/test-php.php\" to test PHP"
+echo "Run \"cp test-mail.php /var/www/html/test-mail.php\" to test Mail"
