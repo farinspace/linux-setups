@@ -18,6 +18,7 @@ Setup scripts should be run in the following order:
 ./install-php.sh
 ./install-mysql.sh
 ./install-postfix.sh
+./install-sftp.sh
 ./secure-iptables.sh
 ```
 
@@ -25,4 +26,10 @@ Add Apache virtual hosts with the following:
 
 ```
 ./add-apache-vhost.sh
+```
+
+Add SFTP users with the following:
+
+```
+./add-sftp-user.sh
 ```

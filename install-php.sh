@@ -1,9 +1,5 @@
 #!/bin/bash
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
-###
-
 add-apt-repository -y ppa:ondrej/php5-5.6
 
 apt-get -yq update
