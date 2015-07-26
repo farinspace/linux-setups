@@ -12,26 +12,6 @@ fi
 
 ###
 
-echo -n "Pasv FTP Port Range [default=50000:60000]: "
-read PORTRANGE
-
-if [ -z "$PORTRANGE" ]
-then
-    PORTRANGE='50000:60000'
-fi
-
-###
-
-echo -n "IP Address (MySQL port access) [default=127.0.0.1]: "
-read MYIP
-
-if [ -z "$MYIP" ]
-then
-    MYIP='127.0.0.1'
-fi
-
-###
-
 TESTRULES='/etc/iptables.test.rules'
 
 rm -R -f $TESTRULES
@@ -44,13 +24,17 @@ cat > $TESTRULES << EOF
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp -m tcp --dport $PORT -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+# https
 #-A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+# svn
 #-A INPUT -p tcp -m tcp --dport 3690 -j ACCEPT
--A INPUT -p tcp --dport 21 -m state --state ESTABLISHED,NEW -j ACCEPT
--A INPUT -p tcp --dport 20 -m state --state ESTABLISHED -j ACCEPT
+# ftp
+#-A INPUT -p tcp --dport 21 -m state --state ESTABLISHED,NEW -j ACCEPT
+#-A INPUT -p tcp --dport 20 -m state --state ESTABLISHED -j ACCEPT
 # see notes: http://serverfault.com/questions/234674/setting-up-linux-iptables-for-ftp-pasv-mode-connections
--A INPUT -p tcp --dport $PORTRANGE -m state --state RELATED,ESTABLISHED,NEW -j ACCEPT
--A INPUT -p tcp -m tcp --dport 3306 -s $MYIP -j ACCEPT
+#-A INPUT -p tcp --dport 50000:60000 -m state --state RELATED,ESTABLISHED,NEW -j ACCEPT
+# mysql pinhole
+#-A INPUT -p tcp -m tcp --dport 3306 -s 127.0.0.1 -j ACCEPT
 # ntp
 -A INPUT -p udp -m udp --dport 123 -j ACCEPT
 -A OUTPUT -p udp -m udp --sport 123 -j ACCEPT
