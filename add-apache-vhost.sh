@@ -24,9 +24,9 @@ fi
 
 ###
 
-mkdir /var/www/$SHORTNAME
-mkdir /var/www/$SHORTNAME/html
-mkdir /var/www/$SHORTNAME/logs
+mkdir -p /var/www/$SHORTNAME
+mkdir -p /var/www/$SHORTNAME/html
+mkdir -p /var/www/$SHORTNAME/logs
 
 cat > /etc/apache2/sites-available/${SHORTNAME}.conf << EOF
 <VirtualHost *:80>
