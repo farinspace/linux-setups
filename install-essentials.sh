@@ -13,4 +13,7 @@ apt-get -yq install python-software-properties
 
 apt-get -yq update
 
+# set default editor as vim
+update-alternatives --set editor /usr/bin/vim.basic
+
 updatedb
